@@ -24,61 +24,7 @@ yourcast! delivers a personalized audio news briefing in exactly 5 minutes:
 
 ## 🏗️ Architecture
 
-```mermaid
-%% ============================================================
-%% YOURCAST - AI News Podcast Generator (Google Cloud Architecture)
-%% ============================================================
-graph TB
-
-    %% === USER & FRONTEND LAYER ===
-    User[👤 User] --> Frontend[Cloud Run: Next.js Frontend]
-    Frontend -->|authenticate| Firebase[🔥 Firebase Auth]
-    Frontend -->|queue task| CloudTasks[☁️ Cloud Tasks]
-
-    %% === AUTHENTICATION VALIDATION ===
-    Firebase -.verify ID token.-> Worker
-
-    %% === BACKGROUND PROCESSING LAYER ===
-    CloudTasks -->|dispatch| Worker[Cloud Run: Worker Service]
-
-    %% === SCHEDULER & DISCOVERY LAYER ===
-    Scheduler[⏰ Cloud Scheduler] -->|every 6h| RSSService[Cloud Run: RSS Discovery]
-    RSSService -->|polls| RSSFeeds[📡 200+ RSS Feeds]
-    RSSService -->|embed articles| VertexAI[Vertex AI: text-embedding-004]
-    RSSService -->|judge duplicates| Gemini[Gemini 2.0 Flash Lite]
-    RSSService -->|store| CloudSQL[(Cloud SQL: PostgreSQL + pgvector)]
-
-    %% === WORKER PROCESSING ===
-    Worker -->|fetch & filter topics| CloudSQL
-    Worker -->|personalize topics| Personalizer[🎯 Topic Personalization Engine]
-    Worker -->|generate podcast| ADK[Google ADK: 4-Agent System]
-
-    %% === MULTI-AGENT WORKFLOW ===
-    subgraph "Google ADK Multi-Agent Workflow"
-        ADK --> Meta[MetadataAgent: Title & Tone]
-        ADK --> Summ[SummarizerAgent: Description]
-        ADK --> Frame[FramingAgent: Intro/Outro]
-        ADK --> Script[TopicScriptAgents: Scripts]
-
-        Meta -.LLM.-> GeminiFlash[Gemini 2.0 Flash Lite]
-        Summ -.LLM.-> GeminiFlash
-        Frame -.LLM.-> GeminiFlash
-        Script -.LLM.-> GeminiFlash
-    end
-
-    %% === OUTPUT PIPELINE ===
-    Worker -->|text-to-speech| TTS[Vertex AI: TTS]
-    Worker -->|store audio| Storage[☁️ Cloud Storage]
-    Storage -->|signed URL| Frontend
-    Frontend -->|play| User
-
-    %% === STYLES ===
-    style ADK fill:#4285f4,stroke:#1a73e8,color:#fff
-    style GeminiFlash fill:#ea4335,stroke:#c5221f,color:#fff
-    style CloudSQL fill:#4285f4,stroke:#1a73e8,color:#fff
-    style Storage fill:#34a853,stroke:#188038,color:#fff
-    style Personalizer fill:#fbbc04,stroke:#e37400,color:#000
-```
+![yourcast! Architecture Diagram](yourcast_architecture.png)
 
 ### How It Works
 
