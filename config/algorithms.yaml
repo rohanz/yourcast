@@ -1,0 +1,32 @@
+# Algorithm parameters and thresholds
+clustering:
+  min_importance_score: 40
+  max_importance_score: 100
+  default_importance_score: 50
+  
+article_selection:
+  min_articles_per_episode: 3
+  max_articles_per_episode: 15
+  diversity_threshold: 0.3
+  freshness_weight: 0.3
+  importance_weight: 0.4
+  diversity_weight: 0.3
+
+podcast_generation:
+  min_quality_threshold: 40
+  target_duration_minutes: 5
+  min_duration_minutes: 2
+  max_duration_minutes: 15
+  words_per_minute: 160
+
+rss_discovery:
+  recent_hours: 24
+  max_articles_per_feed: 200
+  feed_timeout: 10
+  retry_attempts: 3
+  
+content_filtering:
+  min_article_length: 100
+  max_article_length: 10000
+  spam_score_threshold: 0.8
+  duplicate_similarity_threshold: 0.95

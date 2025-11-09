@@ -1,0 +1,41 @@
+# Timeouts, limits and thresholds
+redis:
+  queue_timeout: 5
+  sleep_interval: 5
+  max_retries: 3
+
+database:
+  query_limits:
+    default: 10
+    max_results: 100
+    similar_articles: 5
+    articles_per_category: 20
+    recent_clusters: 20
+  timeouts:
+    connection: 30
+    query: 60
+
+api:
+  timeouts:
+    request: 30
+    health_check: 10
+  rate_limits:
+    episodes_per_minute: 5
+    requests_per_minute: 100
+
+frontend:
+  selection_limit: 10
+  default_episode_duration: 5
+  playback_speeds: [1.0, 1.25, 1.5, 2.0, 0.75]
+  timeouts:
+    warning_display: 3000
+    fade_duration: 1000
+    api_request: 30000
+  pagination:
+    items_per_page: 20
+
+worker:
+  max_concurrent_jobs: 3
+  job_timeout: 600  # 10 minutes
+  retry_attempts: 3
+  retry_delay: 5

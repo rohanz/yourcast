@@ -1,0 +1,23 @@
+# Development environment overrides
+api:
+  base_url: "http://localhost:8000"  # localhost for local development outside Docker
+  storage_base_url: "http://localhost:8000/storage"  # Storage URL for local development
+
+external_services:
+  deepinfra:
+    timeout: 30  # Shorter timeout for dev
+
+database:
+  query_limits:
+    default: 5  # Smaller limits for dev testing
+
+worker:
+  max_concurrent_jobs: 1
+  job_timeout: 300  # 5 minutes for dev
+
+logging:
+  level: "DEBUG"
+  sql_echo: true
+
+security:
+  cors_allow_all: true  # More permissive for dev

@@ -1,0 +1,34 @@
+# Service configuration parameters
+tts:
+  deepinfra:
+    voices: 
+      - "af_nicole"
+      - "af_bella" 
+      - "af_aoede"
+    speed: 1.0
+    sample_rate: 24000
+    output_format: "pcm"
+    timeout: 60
+    return_timestamps: true
+  google:
+    language_code: "en-US"
+    voice_name: "en-US-Neural2-A"
+    timeout: 30
+
+llm:
+  podcast:
+    words_per_minute: 160
+    intro_text: "Welcome to Your Cast, your world update, without the noise."
+    target_style: "jovial, engaging and conversational while remaining informative, even a little humorous and playful"
+    max_sources: 10
+    min_script_paragraphs: 3
+
+embedding:
+  text_max_length: 8192
+  model: "text-embedding-004"
+  batch_size: 100
+
+clustering:
+  similarity_threshold: 0.7
+  max_cluster_size: 50
+  min_cluster_articles: 2

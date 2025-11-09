@@ -1,0 +1,34 @@
+# UI/UX configuration
+animations:
+  fast: 200
+  medium: 300
+  slow: 700
+  very_slow: 1000
+  fade: 100
+
+layout:
+  grid_columns:
+    mobile: 2
+    tablet: 3
+    desktop: 4
+  max_width: "4xl"
+  padding: 4
+
+colors:
+  primary: "maroon"
+  secondary: "tan"
+  accent: "cream"
+  success: "green"
+  warning: "orange"
+  error: "red"
+
+player:
+  default_speed: 1.0
+  speed_options: [0.75, 1.0, 1.25, 1.5, 2.0]
+  seek_step: 10  # seconds
+  volume_step: 0.1
+
+forms:
+  validation_delay: 500
+  auto_save_delay: 2000
+  max_selections: 10

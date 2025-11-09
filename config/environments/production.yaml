@@ -1,0 +1,91 @@
+# Production environment overrides
+api:
+  base_url: "http://api:8000"
+  storage_base_url: "https://learningalien.com/storage"
+
+cors:
+  allowed_origins:
+    - "${FRONTEND_URL}"
+
+external_services:
+  deepinfra:
+    timeout: 120  # Longer timeout for prod
+  google_tts:
+    timeout: 60
+
+# File Storage
+storage:
+  provider: "local"  # Options: local, s3, gcs
+  dir: "/app/storage"
+
+# Rate Limiting (requests per minute) - Production values
+rate_limits:
+  episodes: 20
+  api: 500
+
+# Resource Limits - Production values
+limits:
+  max_episode_duration: 10  # minutes
+  max_concurrent_generations: 5
+
+# Docker Configuration - Production values
+docker:
+  # Container Resource Limits (higher than dev)
+  resources:
+    postgres:
+      memory: "1G"
+      cpus: "1.0"
+    redis:
+      memory: "512M"
+      cpus: "0.5"
+    api:
+      memory: "1G"
+      cpus: "1.0"
+    worker:
+      memory: "2G"
+      cpus: "2.0"
+    web:
+      memory: "1G"
+      cpus: "1.0"
+  
+  # Health Check Configuration (more robust)
+  health_checks:
+    postgres:
+      interval: "30s"
+      timeout: "10s"
+      retries: 5
+      start_period: "60s"
+    api:
+      interval: "60s"
+      timeout: "30s"
+      retries: 5
+  
+  # Security Configuration
+  tmpfs:
+    api: "200m"
+    worker: "1G"
+
+database:
+  query_limits:
+    default: 20  # Higher limits for prod
+    max_results: 500
+  timeouts:
+    connection: 60
+    query: 120
+
+worker:
+  max_concurrent_jobs: 5
+  job_timeout: 1200  # 20 minutes for prod
+  retry_attempts: 5
+
+logging:
+  level: "WARNING"  
+  sql_echo: false
+
+security:
+  cors_allow_all: false
+  rate_limiting: true
+
+performance:
+  cache_ttl: 3600
+  batch_size: 200

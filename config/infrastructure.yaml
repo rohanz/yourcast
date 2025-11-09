@@ -1,0 +1,67 @@
+# Infrastructure and Docker configuration
+ports:
+  postgres: 5432
+  redis: 6379
+  api: 8000
+  web: 3000
+
+services:
+  postgres:
+    resources:
+      memory: "512M"
+      cpus: "0.5"
+    healthcheck:
+      interval: 10
+      timeout: 5
+      retries: 5
+      start_period: 30
+  
+  redis:
+    resources:
+      memory: "256M"
+      cpus: "0.25"
+    config:
+      maxmemory: "256mb"
+      maxmemory_policy: "allkeys-lru"
+      save_interval: 900
+      tcp_keepalive: 60
+  
+  api:
+    resources:
+      memory: "512M"
+      cpus: "0.5"
+    healthcheck:
+      interval: 30
+      timeout: 10
+      retries: 3
+  
+  worker:
+    resources:
+      memory: "1G"
+      cpus: "1.0"
+    concurrency: 1
+  
+  web:
+    resources:
+      memory: "512M"
+      cpus: "0.5"
+
+security:
+  bind_localhost_only: true
+  read_only_containers: true
+  no_new_privileges: true
+  tmpfs:
+    api: 
+      size: "100m"
+      options: "noexec,nosuid"
+    worker:
+      size: "500m" 
+      options: "noexec,nosuid"
+
+volumes:
+  postgres_data:
+    driver: "local"
+  redis_data:
+    driver: "local"
+  storage_uploads:
+    driver: "local"

@@ -1,0 +1,30 @@
+# API endpoints and URLs configuration
+cors:
+  allowed_origins:
+    - "http://localhost:3000"
+    - "https://yourcast.vercel.app"
+
+api:
+  base_url: "http://api:8000"  # Use Docker service name
+  storage_base_url: "http://api:8000/storage"
+  health_endpoint: "/health"
+
+external_services:
+  google_tts:
+    url: "https://texttospeech.googleapis.com/v1/text:synthesize"
+  deepinfra:
+    url: "https://api.deepinfra.com/v1/inference/hexgrad/Kokoro-82M"
+    model: "hexgrad/Kokoro-82M"
+  newsapi:
+    url: "https://newsapi.org/v2/everything"
+
+# Internal service URLs (Docker) - these are set via environment variables
+internal:
+  api_url: "http://api:8000"
+  worker_url: "http://localhost:8001/generate"  # Local dev
+  postgres_url: "${DATABASE_URL}"
+  redis_url: "${REDIS_URL}"
+
+# Cloud Run endpoints (production)
+endpoints:
+  worker_url: "${WORKER_URL:-http://localhost:8001/generate}"

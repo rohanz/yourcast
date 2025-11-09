@@ -1,0 +1,24 @@
+# Testing environment overrides
+database:
+  query_limits:
+    default: 3
+    max_results: 10
+
+worker:
+  max_concurrent_jobs: 1
+  job_timeout: 60  # 1 minute for tests
+
+external_services:
+  deepinfra:
+    timeout: 10
+  google_tts:
+    timeout: 10
+
+redis:
+  queue_timeout: 1
+
+logging:
+  level: "INFO"
+  
+# Mock external services in testing
+mock_services: true

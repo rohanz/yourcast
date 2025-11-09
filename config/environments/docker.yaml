@@ -1,0 +1,96 @@
+# Docker environment overrides - use Docker service names
+api:
+  base_url: "http://api:8000"  # Docker service name
+  storage_base_url: "http://api:8000/storage"
+
+# Frontend should use localhost when accessed from browser
+cors:
+  allowed_origins:
+    - "http://localhost:3000"
+    - "http://web:3000"
+
+# Internal service communication uses Docker service names
+# Database and Redis URLs are provided via Docker Compose environment variables
+internal:
+  api_url: "http://api:8000"
+  postgres_url: "${DATABASE_URL}"
+  redis_url: "${REDIS_URL}"
+
+logging:
+  level: "INFO"
+
+# Security Settings
+security:
+  allowed_hosts:
+    - "localhost"
+    - "127.0.0.1"
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://127.0.0.1:3000"
+
+# Development Settings
+dev_mode: true
+debug: false  # Keep false even in dev for security
+
+# File Storage
+storage:
+  provider: "local"  # Options: local, s3, gcs
+  dir: "/app/storage"
+
+# Rate Limiting (requests per minute)
+rate_limits:
+  episodes: 5
+  api: 100
+
+# Resource Limits
+limits:
+  max_episode_duration: 10  # minutes
+  max_concurrent_generations: 2
+
+# Docker Configuration
+docker:
+  # Container Resource Limits
+  resources:
+    postgres:
+      memory: "512M"
+      cpus: "0.5"
+    redis:
+      memory: "256M"
+      cpus: "0.25"
+    api:
+      memory: "512M"
+      cpus: "0.5"
+    worker:
+      memory: "1G"
+      cpus: "1.0"
+    web:
+      memory: "512M"
+      cpus: "0.5"
+  
+  # Health Check Configuration
+  health_checks:
+    postgres:
+      interval: "10s"
+      timeout: "5s"
+      retries: 5
+      start_period: "30s"
+    api:
+      interval: "30s"
+      timeout: "10s"
+      retries: 3
+  
+  # Security Configuration
+  tmpfs:
+    api: "100m"
+    worker: "500m"
+
+# Docker-optimized settings
+database:
+  query_limits:
+    default: 10
+  timeouts:
+    connection: 30
+
+worker:
+  max_concurrent_jobs: 2  # Conservative for Docker
+  job_timeout: 600
