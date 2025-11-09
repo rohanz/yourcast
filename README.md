@@ -265,12 +265,10 @@ Set these via Cloud Run UI or Secret Manager:
 
 ## 🔮 Future Enhancements
 
-- **Voice cloning** for personalized narration
-- **Multi-language support** (Spanish, French, etc.)
-- **Mobile apps** (iOS/Android)
-- **Podcast feeds** via RSS for podcast apps
-- **Social sharing** with generated clips
-- **Analytics dashboard** for listening patterns
+- **Mobile Apps:** Build native iOS/Android apps with React Native for offline playback and push notifications
+- **Dynamic Cover Art:** Use Gemini image generation to create unique cover art for each episode based on its content
+- **Gemini TTS:** Switch to Gemini's native TTS once it exits preview (though i did use it for the demo video, current rate limits are too harsh for production)
+- **Chronological Story Tracking:** Link clusters temporally—understand that "candidate wins election" comes AFTER "candidate's rally speech." Track what you've heard and automatically deliver follow-ups to ongoing stories you care about.
 
 ---
 
