@@ -156,7 +156,7 @@ Environment-specific overrides in `config/environments/`.
 
 ## 📁 Project Structure
 
-```
+```text
 yourcast/
 ├── apps/
 │   ├── api/              # FastAPI backend
