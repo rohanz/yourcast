@@ -1,6 +1,6 @@
 # yourcast! - AI-Powered Personalized News Podcasts
 
-**Built for Google Cloud Run Hackathon 2024**
+**Built for Google Cloud Run Hackathon 2025**
 
 yourcast! generates personalized 5-minute news podcasts tailored to your interests using Google's Agent Development Kit (ADK), Gemini 2.0 Flash Lite, Gemini TTS and Cloud Run infrastructure.
 
